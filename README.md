@@ -39,7 +39,9 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 192.168.49.50-192.168.49.200  # minikube IP (192.168.49.1) 제외, 192.168.49.2 부터 사용
+  - 192.168.49.50-192.168.49.200
+  autoAssign: true
+
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -49,15 +51,8 @@ metadata:
 spec:
   ipAddressPools:
   - first-pool
----
-apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
-metadata:
-  name: first-adv
-  namespace: metallb-system
-spec:
-  ipAddressPools:
-  - first-pool
+  interfaces:
+  - eth0 # 명시적 인터페이스 지정
 ```
 
 namespace 설정
